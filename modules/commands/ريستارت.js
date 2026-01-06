@@ -1,21 +1,16 @@
-const sera = require("../../utils/seraStyle");
+module.exports = (api) => {
+  const ADMIN_ID = "61577861540407";
+  const BOT_NAME = "سيرا تشان";
 
-module.exports = {
-  name: "restart",
-  description: "إعادة تشغيل البوت (بابا أيمن فقط)",
+  function decorateMessage(msg) {
+    return `╔═❖═══ ✨ ${BOT_NAME} ✨═══❖═╗\n💖 دادي أيمن 💖: ${msg}\n╚═══════════════════════════╝`;
+  }
 
-  execute({ api, event, config }) {
-    if (!config.ADMINBOT.includes(event.senderID)) {
-      return api.sendMessage(
-        sera.notOwner(),
-        event.threadID
-      );
+  api.registerCommand("ريستارت", async (message, args) => {
+    if (message.senderID !== ADMIN_ID) {
+      return api.sendMessage(decorateMessage("هذا الأمر فقط لبابا أيمن 😏"), message.threadID);
     }
 
-    api.sendMessage(
-      sera.forOwner("♻️ حاضر بابا أيمن… سيرا تشان راح تعيد تشغيل نفسها 🥺"),
-      event.threadID,
-      () => process.exit(1)
-    );
-  }
+    return api.sendMessage(decorateMessage("جارٍ إعادة تشغيل البوت 🔄💎"), message.threadID);
+  });
 };
