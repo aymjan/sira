@@ -1,36 +1,17 @@
 
-const fs = require('fs');
+module.exports = (api) => {
+  const ADMIN_ID = "61577861540407"; // ايديك
+  const BOT_NAME = "سيرا تشان";
 
-module.exports.config = {
-    name: "تشغيل",
-    version: "1.0.0",
-    hasPermssion: 2,
-    credits: "Assistant",
-    description: "تشغيل البوت للرد على جميع المستخدمين",
-    commandCategory: "system",
-    usages: "تشغيل",
-    cooldowns: 3,
-    usePrefix: false
-};
+  function decorateMessage(msg) {
+    return `╔═❖═══ ✨ ${BOT_NAME} ✨═══❖═╗\n💖 دادي أيمن 💖: ${msg}\n╚═══════════════════════════╝`;
+  }
 
-module.exports.run = async function({ api, event, args }) {
-    const { threadID, messageID, senderID } = event;
-    const { ADMINBOT, NDH } = global.config;
-    
-    // التحقق من صلاحيات الأدمن
-    if (!ADMINBOT.includes(senderID) && !NDH.includes(senderID)) {
-        return api.sendMessage("⚠️ هذا الأمر مخصص للأدمن فقط!", threadID, messageID);
+  api.registerCommand("تشغيل ", async (message, args) => {
+    if (message.senderID !== ADMIN_ID) {
+      return api.sendMessage(decorateMessage("روح نام هذا لبابا أيمن 😏"), message.threadID);
     }
-    
-    const statusPath = './modules/commands/cache/bot_status.json';
-    
-    // إنشاء الملف إذا لم يكن موجوداً
-    if (!fs.existsSync(statusPath)) {
-        fs.writeFileSync(statusPath, JSON.stringify({ status: "active" }, null, 2));
-    }
-    
-    let botStatus = { status: "active" };
-    fs.writeFileSync(statusPath, JSON.stringify(botStatus, null, 2));
-    
-    return api.sendMessage("🟢 تم تشغيل البوت بنجاح!\n✅ البوت يعمل بشكل طبيعي الآن", threadID, messageID);
+
+    return api.sendMessage(decorateMessage("جارٍ تشغيل البوت 🚀💎"), message.threadID);
+  });
 };
