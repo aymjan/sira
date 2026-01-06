@@ -3,7 +3,7 @@ module.exports.config = {
   version: "1.0.0",
   hasPermssion: 0,
   credits: "Assistant",
-  description: "عرض جميع أوامر البوت بطريقة مزخرفة ودلّوعة",
+  description: "عرض جميع أوامر البوت مزخرفة وفاخرة",
   commandCategory: "general",
   usages: ".اوامر",
   cooldowns: 5
@@ -12,20 +12,46 @@ module.exports.config = {
 module.exports.run = async function({ api, event, args, commands }) {
   const { threadID } = event;
 
-  // زخرفة وأشكال الإيموجيات
-  const header = "🌟✨╔═══❖═══ 🌸 بوت سيرا تشان 🌸 ═══❖═══╗✨🌟\n";
-  const footer = "✨🌟╚═════════════════════════════╝🌟✨";
+  // ✨ زخارف وأشكال
+  const header = "🌟✨╔═══❖═══ 🌸 سيرا تشان 🌸 ═══❖═══╗✨🌟\n";
+  const footer = "✨🌟╚═════════════════════════════╝🌟✨\n💖 تم عرض جميع الأوامر 💖";
 
-  // قائمة الأوامر مزخرفة
-  let msg = header;
-  const allCommands = Array.from(commands.values());
+  // تقسيم الأوامر حسب الفئة
+  const categories = {
+    "عام": [],
+    "أدمن": [],
+    "دلّوع": [],
+    "ألعاب": [],
+    "NSFW": [],
+    "ميديا": [],
+  };
 
-  allCommands.forEach((cmd, index) => {
-    const num = index + 1;
-    const name = cmd.config.name.replace(/_/g, " "); // بدل underscore بمسافة
-    const desc = cmd.config.description || "لا يوجد وصف";
-    msg += `\n🌸 ${num} . ${name}\n💫 ${desc}\n—͟͟͞͞•`;
+  // تصنيف الأوامر تلقائيًا حسب commandCategory
+  commands.forEach(cmd => {
+    const category = cmd.config.commandCategory || "عام";
+    if (!categories[category]) categories[category] = [];
+    categories[category].push(cmd);
   });
+
+  // بناء الرسالة
+  let msg = header;
+
+  for (const [cat, cmds] of Object.entries(categories)) {
+    if (cmds.length === 0) continue; // تجاهل الفئات الفارغة
+    msg += `\n🌸 ✨ ${cat.toUpperCase()} ✨ 🌸\n`;
+    cmds.forEach((cmd, index) => {
+      const num = index + 1;
+      const name = cmd.config.name.replace(/_/g, " ");
+      const desc = cmd.config.description || "لا يوجد وصف";
+      msg += `💫 ${num} . ${name}\n🎀 ${desc}\n—͟͟͞͞•\n`;
+    });
+  }
+
+  msg += footer;
+
+  // إرسال الرسالة
+  return api.sendMessage(msg, threadID);
+};
 
   msg += "\n" + footer;
 
