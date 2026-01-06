@@ -1,5 +1,5 @@
 {
-    "language": "vi",
+    "language": "ar",
     "DeveloperMode": false,
     "autoCreateDB": true,
     "iconUnsend": {
@@ -12,9 +12,9 @@
     "allowInbox": true,
     "commandDisabled": [],
     "eventDisabled": [],
-    "BOTNAME": "",
-    "AMDIN_NAME": "sera chan",
-    "FACEBOOK_ADMIN":"https://www.facebook.com/xvk1c",
+    "BOTNAME": "✨💖 سيرا تشان 💖✨",
+    "ADMIN_NAME": "سيرا تشان",
+    "FACEBOOK_ADMIN": "https://www.facebook.com/xvk1c",
     "PREFIX": ".",
     "ADMINBOT": [
         "61577861540407"
@@ -38,7 +38,7 @@
     },
     "version": "1.2.14",
     "cave": {
-        "cooldownTime": 100000
+        "cooldownTime": 120000
     },
     "daily": {
         "cooldownTime": 540000,
@@ -86,31 +86,16 @@
         "APIKEY": ""
     },
     "adminOnly": false,
-    "اوامر": {
-        "autoUnsend": true,
-        "delayUnsend": 20
+    "autoUnsend": {
+        "status": true,
+        "delay": 20
     },
-    "بنك": {
-        "APIKEY": "chinhdz"
-    },
-    "هلب": {
-        "autoUnsend": true,
-        "delayUnsend": 300
-    },
-    "تاريخ": {
-        "cooldownTime": 200000000
-    },
-    "الرانك": {
-        "autoUnsend": true,
-        "unsendMessageAfter": 5
-    },
-    "كهف": {
-        "cooldown": 2000000000
-    },
-    "لقب": {
-        "APIKEY": "mi451266190"
-    },
-    "طقس": {
-        "OPEN_WEATHER": "c4ef85b93982d6627681b056e24bd438"
+    "commandsConfig": {
+        "bank": { "APIKEY": "chinhdz" },
+        "help": { "autoUnsend": true, "delayUnsend": 300 },
+        "rank": { "autoUnsend": true, "unsendMessageAfter": 5 },
+        "cave": { "cooldown": 120000 },
+        "nickname": { "APIKEY": "mi451266190" },
+        "weather": { "OPEN_WEATHER": "c4ef85b93982d6627681b056e24bd438" }
     }
 }
