@@ -1,18 +1,16 @@
-module.exports = {
-  name: "ايقاف",
-  execute({ api, event, config }) {
+module.exports = (api) => {
+  const ADMIN_ID = "61577861540407";
+  const BOT_NAME = "سيرا تشان";
 
-    if (!config.ADMINBOT.includes(event.senderID)) {
-      return api.sendMessage(
-        "🙅‍♀️ هذا الأمر خاص لبابا أيمن فقط",
-        event.threadID
-      );
+  function decorateMessage(msg) {
+    return `╔═❖═══ ✨ ${BOT_NAME} ✨═══❖═╗\n💖 باباتي أيمن 💖: ${msg}\n╚═══════════════════════════╝`;
+  }
+
+  api.registerCommand("ايقاف ", async (message, args) => {
+    if (message.senderID !== ADMIN_ID) {
+      return api.sendMessage(decorateMessage("هذا الأمر فقط لبابا أيمن 😏"), message.threadID);
     }
 
-    api.sendMessage(
-      "😴 سيرا تشان رايحة تنام… تصبح على خير بابا أيمن 💗",
-      event.threadID,
-      () => process.exit(0)
-    );
-  }
+    return api.sendMessage(decorateMessage("تم إيقاف البوت 🛑💎"), message.threadID);
+  });
 };
